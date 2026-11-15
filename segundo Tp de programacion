@@ -1,0 +1,101 @@
+# 1. DATOS DEL ENTRENADOR
+entrenador = 
+    "nombre": "Sandoval Santino",
+    "edad": 17,
+    "aspecto": "Chico amable y cariñoso de Pueblo Paleta",
+
+# 2. EQUIPO POKÉMON (LISTA DE DICCIONARIOS)
+
+equipo_pokemon: 
+#primer pokemon =
+        "especie": "Pikachu",
+        "sexo": "Masculino",
+        "nivel": 10,
+        "ps": 32,
+        "atrapado_en": "Ruta 6",
+        "estacion": "Verano",
+        "stats": 
+            "fuerza": 18,
+            "velocidad": 26,
+            "defensa": 14,
+            "ataque_especial": 17,
+            "defensa_especial": 15,
+            "suerte": 20,
+#segundo Pokémon =
+        "especie": "Charmander",
+        "sexo": "Masculino",
+        "nivel": 10,
+        "ps": 40,
+        "atrapado_en": "Laboratorio del Profesor Oak",
+        "estacion": "No especificada",
+        "stats": {
+            "fuerza": 19,
+            "velocidad": 20,
+            "defensa": 15,
+            "ataque_especial": 21,
+            "defensa_especial": 16,
+            "suerte": 16,
+
+       #Tercer y último pokemon =
+        "especie": "Geodude",
+        "sexo": "Femenino",
+        "nivel": 7,
+        "ps": 32,
+        "atrapado_en": "Ruta 3 de Kanto",
+        "estacion": "No especificada",
+        "stats": {
+            "fuerza": 20,
+            "velocidad": 10,
+            "defensa": 24,
+            "ataque_especial": 11,
+            "defensa_especial": 12,
+            "suerte": 14,
+
+3#. 8 INTENTOS FALLIDOS CON GEODUDES intentos_fallidos_geodude = 
+    {"intento": 1, "lugar": "Ruta 3 de Kanto", "motivo": "Rompió la Poké Ball al primer sacudón y escapó."},
+    {"intento": 2, "lugar": "Ruta 3 de Kanto", "motivo": "Se escondió entre las rocas antes de lanzar la ball."},
+    {"intento": 3, "lugar": "Ruta 3 de Kanto", "motivo": "Usó Desenrollar y huyó del combate."},
+    {"intento": 4, "lugar": "Ruta 3 de Kanto", "motivo": "La Poké Ball falló por falta de puntería; escapó."},
+    {"intento": 5, "lugar": "Ruta 3 de Kanto", "motivo": "Salió de la ball tras dos giros y se fue."},
+    {"intento": 6, "lugar": "Ruta 3 de Kanto", "motivo": "Se asustó con el ruido del entorno y escapó."},
+    {"intento": 7, "lugar": "Ruta 3 de Kanto", "motivo": "Bloqueó la ball con su brazo rocoso y huyó."},
+    {"intento": 8, "lugar": "Ruta 3 de Kanto", "motivo": "Escapó justo cuando la ball estaba por CerrarsCerrarse
+
+#4. RECURSIÓN SOBRE EL DOMINIO + TRAZA
+
+def generar_informe_recursivo(equipo: list, indice: int = 0, nivel_llamada: int = 1) -> list:
+    """
+    Recorre el dataset `equipo` mediante recursión sobre el dominio.
+    - Caso base: cuando `indice` alcanza el largo de la lista.
+    - Paso recursivo: procesa el Pokémon en `indice` y llama a `indice + 1`.
+    """
+    indent = "  " * (nivel_llamada - 1)
+    print(f"{indent}[TRAZA -> Llamada #{nivel_llamada}] indice={indice}, pendientes={len(equipo) - indice}")
+
+    # CASO BASE: ya no quedan Pokémon por revisar
+    if indice == len(equipo):
+        print(f"{indent}[TRAZA -> CASO BASE] indice == {len(equipo)}. Fin de la recursión.\n")
+        return []
+
+    actual = equipo[indice]
+    stats = actual["stats"]
+
+    linea_informe = (
+        f"• {actual['especie']} (Nv. {actual['nivel']} | {actual['sexo']} | {actual['ps']} PS)\n"
+        f"  Captura: {actual['atrapado_en']} (Estación: {actual['estacion']})\n"
+        f"  Fuerza: {stats['fuerza']} | Velocidad: {stats['velocidad']} | Defensa: {stats['defensa']} | "
+        f"At. Esp.: {stats['ataque_especial']} | Def. Esp.: {stats['defensa_especial']} | Suerte: {stats['suerte']}"
+
+
+    print(f"{indent}[TRAZA -> Procesando] {actual['especie']} en posición {indice}")
+
+    # PASO RECURSIVO
+    resto_informe = generar_informe_recursivo(equipo, indice + 1, nivel_llamada + 1)
+
+    print(f"{indent}[TRAZA -> Retorno #{nivel_llamada}] Finalizado {actual['especie']}")
+    return [linea_informe] + resto_informe
+    
+     # LINEA DE FORMACION
+     Def: primer pokemon atrapado Charmander.segundo pokemon atrapado Pikachu y ultimo pokemon atrapado Geodude
+     
+     
