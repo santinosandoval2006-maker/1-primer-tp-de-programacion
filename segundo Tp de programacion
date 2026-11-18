@@ -1,101 +1,352 @@
-# 1. DATOS DEL ENTRENADOR
-entrenador = 
-    "nombre": "Sandoval Santino",
-    "edad": 17,
-    "aspecto": "Chico amable y cariñoso de Pueblo Paleta",
+mi_proyecto_pokedex/
 
-# 2. EQUIPO POKÉMON (LISTA DE DICCIONARIOS)
+│
 
-equipo_pokemon: 
-#primer pokemon =
-        "especie": "Pikachu",
-        "sexo": "Masculino",
-        "nivel": 10,
-        "ps": 32,
-        "atrapado_en": "Ruta 6",
-        "estacion": "Verano",
-        "stats": 
-            "fuerza": 18,
-            "velocidad": 26,
-            "defensa": 14,
-            "ataque_especial": 17,
-            "defensa_especial": 15,
-            "suerte": 20,
-#segundo Pokémon =
-        "especie": "Charmander",
-        "sexo": "Masculino",
-        "nivel": 10,
-        "ps": 40,
-        "atrapado_en": "Laboratorio del Profesor Oak",
-        "estacion": "No especificada",
-        "stats": {
-            "fuerza": 19,
-            "velocidad": 20,
-            "defensa": 15,
-            "ataque_especial": 21,
-            "defensa_especial": 16,
-            "suerte": 16,
+├── src/
 
-       #Tercer y último pokemon =
-        "especie": "Geodude",
-        "sexo": "Femenino",
-        "nivel": 7,
-        "ps": 32,
-        "atrapado_en": "Ruta 3 de Kanto",
-        "estacion": "No especificada",
-        "stats": {
-            "fuerza": 20,
-            "velocidad": 10,
-            "defensa": 24,
-            "ataque_especial": 11,
-            "defensa_especial": 12,
-            "suerte": 14,
+│   ├── __init__.py
 
-3#. 8 INTENTOS FALLIDOS CON GEODUDES intentos_fallidos_geodude = 
-    {"intento": 1, "lugar": "Ruta 3 de Kanto", "motivo": "Rompió la Poké Ball al primer sacudón y escapó."},
-    {"intento": 2, "lugar": "Ruta 3 de Kanto", "motivo": "Se escondió entre las rocas antes de lanzar la ball."},
-    {"intento": 3, "lugar": "Ruta 3 de Kanto", "motivo": "Usó Desenrollar y huyó del combate."},
-    {"intento": 4, "lugar": "Ruta 3 de Kanto", "motivo": "La Poké Ball falló por falta de puntería; escapó."},
-    {"intento": 5, "lugar": "Ruta 3 de Kanto", "motivo": "Salió de la ball tras dos giros y se fue."},
-    {"intento": 6, "lugar": "Ruta 3 de Kanto", "motivo": "Se asustó con el ruido del entorno y escapó."},
-    {"intento": 7, "lugar": "Ruta 3 de Kanto", "motivo": "Bloqueó la ball con su brazo rocoso y huyó."},
-    {"intento": 8, "lugar": "Ruta 3 de Kanto", "motivo": "Escapó justo cuando la ball estaba por CerrarsCerrarse
+│   ├── tads/
 
-#4. RECURSIÓN SOBRE EL DOMINIO + TRAZA
+│   │   ├── __init__.py
 
-def generar_informe_recursivo(equipo: list, indice: int = 0, nivel_llamada: int = 1) -> list:
-    """
-    Recorre el dataset `equipo` mediante recursión sobre el dominio.
-    - Caso base: cuando `indice` alcanza el largo de la lista.
-    - Paso recursivo: procesa el Pokémon en `indice` y llama a `indice + 1`.
-    """
-    indent = "  " * (nivel_llamada - 1)
-    print(f"{indent}[TRAZA -> Llamada #{nivel_llamada}] indice={indice}, pendientes={len(equipo) - indice}")
+│   │   ├── nodo.py
 
-    # CASO BASE: ya no quedan Pokémon por revisar
-    if indice == len(equipo):
-        print(f"{indent}[TRAZA -> CASO BASE] indice == {len(equipo)}. Fin de la recursión.\n")
-        return []
+│   │   ├── lista_enlazada.py
 
-    actual = equipo[indice]
-    stats = actual["stats"]
+│   │   ├── pila.py
 
-    linea_informe = (
-        f"• {actual['especie']} (Nv. {actual['nivel']} | {actual['sexo']} | {actual['ps']} PS)\n"
-        f"  Captura: {actual['atrapado_en']} (Estación: {actual['estacion']})\n"
-        f"  Fuerza: {stats['fuerza']} | Velocidad: {stats['velocidad']} | Defensa: {stats['defensa']} | "
-        f"At. Esp.: {stats['ataque_especial']} | Def. Esp.: {stats['defensa_especial']} | Suerte: {stats['suerte']}"
+│   │   └── cola.py
+
+│   ├── dominio/
+
+│   │   ├── __init__.py
+
+│   │   └── pokemon.py
+
+│   ├── persistencia/
+
+│   │   ├── __init__.py
+
+│   │   └── csv_loader.py
+
+│   └── algoritmos/
+
+│       ├── __init__.py
+
+│       └── procesador_evoluciones.py
+
+│
+
+├── pokedex.csv
+
+└──Main.pv
 
 
-    print(f"{indent}[TRAZA -> Procesando] {actual['especie']} en posición {indice}")
 
-    # PASO RECURSIVO
-    resto_informe = generar_informe_recursivo(equipo, indice + 1, nivel_llamada + 1)
+1,Bulbasaur,Planta/Veneno,Ivysaur (Nivel 16) ➔ Venusaur (Nivel 32),Una rara semilla fue plantada en su lomo al nacer.
 
-    print(f"{indent}[TRAZA -> Retorno #{nivel_llamada}] Finalizado {actual['especie']}")
-    return [linea_informe] + resto_informe
+2,Charmander,Fuego,Charmeleon (Nivel 16) ➔ Charizard (Nivel 36),Prefiere los lugares calientes y húmedos.
+
+3,Squirtle,Agua,Wartortle (Nivel 16) ➔ Blastoise (Nivel 36),Cuando retrae su largo cuello, dispara agua con gran fuerza.
+
+4,Pikachu,Eléctrico,Raichu (Usando Piedra Trueno),Tiene bolsitas en las mejillas donde almacena electricidad.
+
+5,Eevee,Normal,Vaporeon / Jolteon / Flareon (Con Piedras Elementales),Su código genético irregular le permite mutar con facilidad.
+
+6,Abra,Psíquico,Kadabra (Nivel 16) ➔ Alakazam (Por Intercambio),Duerme 18 horas al día y detecta el peligro durmiendo.
+
+7,Machop,Lucha,Machoke (Nivel 28) ➔ Machamp (Por Intercambio),Aunque es pequeño, puede levantar a 100 personas adultas.
+
+8,Magikarp,Agua,Gyarados (Nivel 20),Un Pokémon débil y patético que salta alto en el agua.
+
+
+
+class Nodo:
+
+   def __init__(self, dato):
+
+    self.dato = dato
+
+    self.siguiente = None
+
+from src.tads.nodo import Nodo
+
+
+
+
+
+class IteradorListaEnlazada:
+
+
+
+  def __init__(self, cabeza):
+
+    self.actual = cabeza
+
+
+
+  def __iter__(self):
+
+    return self
+
+
+
+  def __next__(self):
+
+    if self.actual is None:
+
+      raise StopIteration
+
+    dato = self.actual.dato
+
+    self.actual = self.actual.siguiente
+
+    return dato
+
+
+
+
+
+class ListaEnlazada:
+
+
+
+  def __init__(self):
+
+    self.cabeza = None
+
+    self._tamanio = 0
+
+
+
+  def esta_vacia(self):
+
+    return self.cabeza is None
+
+
+
+  def agregar(self, dato):
+
+    nuevo_nodo = Nodo(dato)
+
+    if self.esta_vacia():
+
+      self.cabeza = nuevo_nodo
+
+    else:
+
+      actual = self.cabeza
+
+      while actual.siguiente:
+
+        actual = actual.siguiente
+
+      actual.siguiente = nuevo_nodo
+
+    self._tamanio += 1
+
+
+
+  def __len__(self):
+
+    return self._tamanio
+
+
+
+  def __iter__(self):
+
+    return IteradorListaEnlazada(self.cabeza)
+
+
+
+class Pokemon:
+
+  def __init__(self, numero, nombre, tipo, evolucion, descripcion):
+
+    self.numero = numero
+
+    self.nombre = nombre
+
+    self.tipo = tipo
+
+    self.evolucion = evolucion
+
+    self.descripcion = descripcion
+
+
+
+  def __str__(self):
+
+    return (f"#{self.numero} - {self.nombre} ({self.tipo}) | Línea Evolutiva:"f" {self.evolucion})
+
+
+
+import csv
+
+from src.dominio.pokemon import Pokemon
+
+from src.tads.lista_enlazada import ListaEnlazada
+
+
+
+def cargar_pokedex_desde_csv(ruta_archivo):
+
+  lista_pokedex = ListaEnlazada()
+
+  try:
+
+    with open(ruta_archivo, mode="r", encoding="utf-8") as archivo:
+
+      lector = csv.DictReader(archivo)
+
+      for fila in lector:
+
+        pokemon = Pokemon(
+
+            numero=fila["numero"],
+
+            nombre=fila["nombre"],
+
+            tipo=fila["tipo"],
+
+            evolucion=fila["evolucion"],
+
+            descripcion=fila["descripcion"],
+
+        )
+
+        lista_pokedex.agregar(pokemon)
+
+  except FileNotFoundError:
+
+    print: (f"[!] Advertencia: No se encontró el archivo '{ruta_archivo}' en la"
+
+        " ruta especificada.")
+
+  return lista_pokedex
+
+
+
+from src.algoritmos.procesador_evoluciones import simular_flujo_evolutivo
+
+from src.persistencia.csv_loader import cargar_pokedex_desde_csv
+
+
+
+
+
+def main():
+
+  print("==================================================")
+
+  print("      POKÉDEX ESTRUCTURADA - TADs & ARCHIVOS      ")
+
+  print("==================================================")
+
+
+
+  ruta_csv = "pokedex.csv"
+
+  pokedex = cargar_pokedex_desde_csv(ruta_csv)
+
+
+
+  if len(pokedex) == 0:
+
+    print("[!] No hay registros cargados. Verifica que 'pokedex.csv' exista.")
+
+    return
+
+
+
+  print(f"[+] Se cargaron exitosamente {len(pokedex)} Pokémon desde el CSV.")
+
+
+
+  while True:
+
+    print("\n--- MENÚ DE OPERACIONES ---")
+
+    print("1. Listar Pokédex completa (usando iterador de Lista Enlazada)")
+
+    print("2. Simular procesamiento por Cola (FIFO) y Pila (LIFO)")
+
+    print("3. Salir")
+
+    opcion = input("Elige una opción (1-3): ").strip()
+
+
+
+    if opcion == "1":
+
+      print("\n--- REGISTROS DE LA POKÉDEX ---")
+
+      # El bucle for utiliza automáticamente el iterador __iter__ y __next__ de nuestra ListaEnlazada
+
+      for pokemon in pokedex:
+
+        print(pokemon)
+
+
+
+    elif opcion == "2":
+
+      cola, pila = simular_flujo_evolutivo(pokedex)
+
+      print(
+
+          "\n[ Procesando con COLA (Orden de entrada original - FIFO) ]:"
+
+      )
+
+      while not cola.esta_vacia():
+
+        p = cola.desencolar()
+
+        print(f" -> Analizando línea de: {p.nombre}")
+
+
+
+      print(
+
+          "\n[ Procesando con PILA (Orden inverso / Historial LIFO) ]:"
+
+      )
+
+      while not pila.esta_vacia():
+
+        p = pila.desapilar()
+
+        print(f" -> Retrocediendo historial de: {p.nombre}")
+
+
+
+    elif opcion == "3":
+
+      print(
+
+          "\n¡Programa finalizado con éxito! Mucho éxito con tu entrega de"
+
+          " estructuras."
+
+      )
+
+      break
+
+    else:
+
+      print("\n[!] Opción inválida. Intenta nuevamente.")
+
+
+if __name__ == "__main__":
+
+  main()
+
+ Integrantes del equipo: Santino sandoval 
+Gmail: Santinosandoval
+Grupo: 15 
+Integrantes: 1 solo
+
     
-     # LINEA DE FORMACION
-     Def: primer pokemon atrapado Charmander.segundo pokemon atrapado Pikachu y ultimo pokemon atrapado Geodude
-     
      
